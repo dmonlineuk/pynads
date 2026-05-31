@@ -13,7 +13,33 @@ It provides an interactive CLI for entering device information and is designed t
 
 ## Requirements
 
+Astral uv is required. Either it will be installed system-wide, or the user will install it after cloning the repsoitory.
 
+### System-wide
+
+System-wide install is performed as per https://docs.astral.sh/uv/getting-started/installation/, then these steps would be required to clone the repo and activate the venv:
+
+```bash
+git clone https://github.com/dmonlineuk/pynads && cd pynads
+uv venv
+. .venv/bin/activate
+```
+
+### Inside the virtual environment
+
+The following will clone the repo, activate the venv and install uv:
+
+```bash
+git clone https://github.com/dmonlineuk/pynads && cd pynads
+python -m venv .venv
+. .venv/bin/activate
+python -m pip install -U pip
+pip install uv
+```
+
+#### Development Environment
+
+Run `uv sync --group dev` to enable development tools `isort`, `ruff` and `pytest`.
 
 ### Copilot Links
 
