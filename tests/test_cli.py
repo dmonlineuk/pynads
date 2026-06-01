@@ -27,3 +27,23 @@ def test_add_node_minimal():
     )
     assert result.exit_code == 0
     assert "testnode" in result.stdout
+
+def test_list_nodes():
+    result = runner.invoke(app, ["list"])
+    assert result.exit_code == 0
+
+def test_search_nodes():
+    result = runner.invoke(app, ["search", "test"])
+    assert result.exit_code == 0
+
+def test_view_node_not_found():
+    result = runner.invoke(app, ["view", "99999"])
+    assert "not found" in result.stdout.lower()
+
+def test_edit_node():
+    result = runner.invoke(app, ["edit", "1", "purpose", "updated"])
+    assert result.exit_code == 0
+
+def test_delete_node():
+    result = runner.invoke(app, ["delete", "1"])
+    assert result.exit_code == 0

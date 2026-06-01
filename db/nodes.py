@@ -25,3 +25,46 @@ def insert_node(node):
 
     conn.commit()
     conn.close()
+
+def list_nodes():
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT id, hostname, os_type, purpose FROM nodes")
+    rows = cur.fetchall()
+    conn.close()
+    return rows
+
+def search_nodes(term):
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT id, hostname, os_type, purpose
+        FROM nodes
+        WHERE hostname LIKE ?
+    """, (f"%{term}%",))
+    rows = cur.fetchall()
+    conn.close()
+    return rows
+
+def get_node(node_id):
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM nodes WHERE id = ?", (node_id,))
+    row = cur.fetchone()
+    conn.close()
+    return row
+
+def update_node(node_id, field, value):
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute(f"UPDATE nodes SET {field} = ? WHERE id = ?", (value, node_id))
+    conn.commit()
+    conn.close()
+
+def delete_node(node_id):
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("DELETE FROM nodes WHERE id = ?", (node_id,))
+    conn.commit()
+    conn.close()
+
