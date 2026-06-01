@@ -5,7 +5,7 @@ from ui.cli import app
 runner = CliRunner()
 
 def test_init_db():
-    result = runner.invoke(app, ["init-db"])
+    result = runner.invoke(app, ["init"])
     assert result.exit_code == 0
     assert "initialised" in result.stdout.lower()
 
@@ -13,7 +13,7 @@ def test_add_node_minimal():
     result = runner.invoke(
         app,
         [
-            "add-node",
+            "add",
             "testnode",
             "--cpu-model", "i5",
             "--ram-gb", "16",

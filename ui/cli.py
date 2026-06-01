@@ -7,14 +7,14 @@ from utils.validators import validate_ip, validate_os
 
 app = typer.Typer(help="Network Asset Documentation CLI")
 
-@app.command("init-db")
+@app.command("init")
 def init_db():
     """Initialise the SQLite database."""
     create_tables()
     typer.echo("Database initialised.")
 
-@app.command("add-node")
-def add_node(
+@app.command("add")
+def add_node_cmd(
     hostname: str = typer.Argument(...),
     cpu_model: str = typer.Option(..., prompt=True),
     ram_gb: int = typer.Option(..., prompt=True),
